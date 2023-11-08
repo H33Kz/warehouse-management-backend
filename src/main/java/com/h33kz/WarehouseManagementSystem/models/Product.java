@@ -18,12 +18,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @SecondaryTable(name = "stock", pkJoinColumns = @PrimaryKeyJoinColumn(name = "product_id"))
-public class Pipe {
+public class Product{
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
   private String name;
-  private PipeVariant variant;
+  private ProductVariant variant;
   private MaterialType materialType;
   private double thickness;
   private double price;
