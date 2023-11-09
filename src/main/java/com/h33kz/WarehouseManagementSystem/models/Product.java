@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.SecondaryTable;
+import jakarta.persistence.SecondaryTables;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,15 +18,18 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@SecondaryTable(name = "stock", pkJoinColumns = @PrimaryKeyJoinColumn(name = "product_id"))
+@SecondaryTables({
+  @SecondaryTable(name = "stock", pkJoinColumns = @PrimaryKeyJoinColumn(name = "product_id")),
+  @SecondaryTable(name = "prices", pkJoinColumns = @PrimaryKeyJoinColumn(name = "product_id"))
+})
 public class Product{
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
   private String name;
-  private ProductVariant variant;
-  private MaterialType materialType;
-  private double thickness;
+  private ProductCategory category;
+
+  @Column(name = "price", table = "prices")
   private double price;
   
   @Column(name = "amount", table = "stock")
