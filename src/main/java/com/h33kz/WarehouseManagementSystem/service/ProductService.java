@@ -16,9 +16,8 @@ public class ProductService{
   ProductRepository productRepository;
  
   //Insert new product to database
-  public void insertProduct(Product product){
-    productRepository.save(product);
-    return;
+  public Product insertProduct(Product product){
+    return productRepository.save(product);
   }
 
   //Get list of all products sorted by id
@@ -72,7 +71,7 @@ public class ProductService{
   }
 
   //Get list of products in specified category
-  public List<Product> getProductWithCategory(ProductCategory category){
+  public List<Product> getProductsWithCategory(ProductCategory category){
     return productRepository.findByCategory(category);
   }
 
