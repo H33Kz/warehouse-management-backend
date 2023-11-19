@@ -25,6 +25,11 @@ public class ProductController {
   public Product insertProduct(@RequestBody Product product){
     return productService.insertProduct(product);
   }
+  
+  @GetMapping("/delete/{id}")
+  public Product removeProduct(@PathVariable int id){
+    return productService.removeProduct(id);
+  }
 
   @GetMapping("/getOrdered/id")
   public List<Product> getAllById(){

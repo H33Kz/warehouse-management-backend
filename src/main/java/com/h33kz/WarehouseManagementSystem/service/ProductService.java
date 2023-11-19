@@ -20,6 +20,14 @@ public class ProductService{
     return productRepository.save(product);
   }
 
+  public Product removeProduct(int index){
+    Product product = productRepository.findById(index).orElse(null);
+    if(product != null){
+      productRepository.delete(product);
+    }
+    return product;
+  }
+
   //Get list of all products sorted by id
   public List<Product> getAllById(){
     return productRepository.findAll();
