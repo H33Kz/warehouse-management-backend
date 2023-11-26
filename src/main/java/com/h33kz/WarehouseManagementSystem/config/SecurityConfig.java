@@ -3,7 +3,6 @@ package com.h33kz.WarehouseManagementSystem.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -25,9 +24,11 @@ public class SecurityConfig {
   @Bean
   SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
     return http.authorizeHttpRequests(auth -> auth
-      .requestMatchers(HttpMethod.POST).hasAuthority("ADMIN")
-      .requestMatchers(HttpMethod.GET).hasAuthority("USER")
-      .anyRequest().denyAll())
+      // .requestMatchers(HttpMethod.POST).hasAuthority("ADMIN")
+      // .requestMatchers(HttpMethod.GET).hasAuthority("USER")
+      // .anyRequest().denyAll())
+      .anyRequest().permitAll())
+      .csrf(csrf -> csrf.disable())
       .httpBasic(Customizer.withDefaults())
       .userDetailsService(jpaUserDetailsService)
       .build();
