@@ -16,8 +16,12 @@ public class UserService {
   private PasswordEncoder passwordEncoder;
 
   public User addUser(User user){
-    user.setPassword(passwordEncoder.encode(user.getPassword()));
-    return userRepository.save(user);
+    if(userRepository.findByUsername(user.getUsername())==null){
+      user.setPassword(passwordEncoder.encode(user.getPassword()));
+      return userRepository.save(user);
+    }
+    else{
+      return null;
+    }
   }
-  
 }
