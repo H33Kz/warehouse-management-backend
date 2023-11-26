@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.h33kz.WarehouseManagementSystem.exceptions.AmountLowerThanZeroException;
+import com.h33kz.WarehouseManagementSystem.exceptions.PriceLowerThanZeroException;
+import com.h33kz.WarehouseManagementSystem.exceptions.ProductNotFoundException;
 import com.h33kz.WarehouseManagementSystem.models.Product;
 import com.h33kz.WarehouseManagementSystem.models.ProductCategory;
 import com.h33kz.WarehouseManagementSystem.repository.ProductRepository;
@@ -85,50 +88,61 @@ public class ProductService{
 
   //Get product from database by index
   public Product getProductById(int index){
-    return productRepository.findById(index).orElse(null);
+    Product product = productRepository.findById(index).orElse(null);
+    if(product!=null){
+      return product;
+    }else{
+      throw new ProductNotFoundException("Product with that ID does not exist");
+    }
   }
-
+  
   //Get amount of a product in stock by index
   public long getAmountById(int index){
     Product product = productRepository.findById(index).orElse(null);
-    return (product == null) ? -1 : product.getAmount(); 
+    if(product==null){
+      throw new ProductNotFoundException("Product with that ID does not exist");
+    }else{
+      return product.getAmount();
+    }
   }
-
+  
   //Get price of a product by index
   public double getPriceById(int index){
     Product product = productRepository.findById(index).orElse(null);
-    return (product == null) ? -1.0 : product.getPrice();
+    if(product==null){
+      throw new ProductNotFoundException("Product with that ID does not exist");
+    }else{
+      return product.getPrice();
+    }
   }
   
   //Set amount of a product in stock by index
-  public int updateAmountById(long additionalAmount, int index){
+  public Product updateAmountById(long newAmount, int index){
     Product product = productRepository.findById(index).orElse(null);
     if(product != null){
-      if((product.getAmount() + additionalAmount) >= 0){
-        product.setAmount(product.getAmount() + additionalAmount);
+      if(newAmount >= 0){
+        product.setAmount(newAmount);
+        return productRepository.save(product);
       }else{
-        product.setAmount(0);
+        throw new AmountLowerThanZeroException("Given amount is lower than zero");
       }
-      productRepository.save(product);
-      return 1;
     }else{
-      return -1;
+      throw new ProductNotFoundException("Product with that ID does not exist");
     }
   }
   
   //Set new price of a product in stock by index
-  public int updatePriceById(double newPrice, int index){
+  public Product updatePriceById(double newPrice, int index){
     Product product = productRepository.findById(index).orElse(null);
     if(product != null){
       if(newPrice >= 0){
         product.setPrice(newPrice);
-        productRepository.save(product);
-        return 1;
+        return productRepository.save(product);
       }else{
-        return -1;
+        throw new PriceLowerThanZeroException("Given price is lower than zero");
       }
     }else{
-      return -1;
+      throw new ProductNotFoundException("Product with that ID does not exist");
     }
   }
 }
