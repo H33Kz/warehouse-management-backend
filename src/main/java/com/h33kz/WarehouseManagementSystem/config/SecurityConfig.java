@@ -22,6 +22,7 @@ public class SecurityConfig {
   @Autowired
   private JpaUserDetailsService jpaUserDetailsService;
 
+  //test
   @Bean
   SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
     return http.authorizeHttpRequests(auth -> auth
