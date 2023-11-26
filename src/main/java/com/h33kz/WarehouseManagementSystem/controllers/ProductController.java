@@ -102,12 +102,12 @@ public class ProductController {
   }
   
   @GetMapping("/update/amount/{id}/{amount}")
-  public int updateAmountById(@PathVariable(name = "amount") long amount, @PathVariable(name = "id") int id){
+  public Product updateAmountById(@PathVariable(name = "amount") long amount, @PathVariable(name = "id") int id){
     return productService.updateAmountById(amount, id);
   }
 
   @GetMapping("/update/price/{id}/{price}")
-  public int updatePriceById(@PathVariable(name = "price") double price, @PathVariable(name = "id") int id){
+  public Product updatePriceById(@PathVariable(name = "price") double price, @PathVariable(name = "id") int id){
     return productService.updatePriceById(price, id);
   }
 }
