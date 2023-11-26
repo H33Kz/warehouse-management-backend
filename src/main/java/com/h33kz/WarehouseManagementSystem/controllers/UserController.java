@@ -20,10 +20,4 @@ public class UserController {
   public User addUser(@RequestBody User user){
     return userService.addUser(user);
   }
-
-  @GetMapping("/test")
-  public String test(){
-    return "Test";
-  }
-  
 }
