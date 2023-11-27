@@ -17,7 +17,7 @@ public class GlobalExceptionHandler {
     return new ResponseEntity<>(exceptionResponse,HttpStatus.NOT_FOUND);
   }
   
-  @ExceptionHandler(value = {PriceLowerThanZeroException.class, AmountLowerThanZeroException.class})
+  @ExceptionHandler(value = {PriceLowerThanZeroException.class, AmountLowerThanZeroException.class, UserAlreadyExistsException.class})
   public ResponseEntity<Object> handleInproperRequestValueException(Exception e){
     ExceptionResponse exceptionResponse = new ExceptionResponse(e.getMessage(), HttpStatus.CONFLICT, ZonedDateTime.now(ZoneId.of("Z")));
     return new ResponseEntity<>(exceptionResponse,HttpStatus.CONFLICT);
