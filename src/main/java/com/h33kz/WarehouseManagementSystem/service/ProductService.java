@@ -16,7 +16,7 @@ import com.h33kz.WarehouseManagementSystem.repository.ProductRepository;
 @Service
 public class ProductService{
   @Autowired
-  ProductRepository productRepository;
+  private ProductRepository productRepository;
  
   //Insert new product to database
   public Product insertProduct(Product product){
