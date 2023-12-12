@@ -27,6 +27,8 @@ public class ProductService{
     Product product = productRepository.findById(index).orElse(null);
     if(product != null){
       productRepository.delete(product);
+    }else{
+      throw new ProductNotFoundException("Product with that ID does not exist");
     }
     return product;
   }
@@ -141,6 +143,17 @@ public class ProductService{
       }else{
         throw new PriceLowerThanZeroException("Given price is lower than zero");
       }
+    }else{
+      throw new ProductNotFoundException("Product with that ID does not exist");
+    }
+  }
+
+  //
+  public Product updateNameById(int index, String newName){
+    Product product = productRepository.findById(index).orElse(null);
+    if(product!=null){
+      product.setName(newName);
+      return productRepository.save(product);
     }else{
       throw new ProductNotFoundException("Product with that ID does not exist");
     }

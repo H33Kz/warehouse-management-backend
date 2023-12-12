@@ -110,4 +110,9 @@ public class ProductController {
   public Product updatePriceById(@PathVariable(name = "price") double price, @PathVariable(name = "id") int id){
     return productService.updatePriceById(price, id);
   }
+
+  @GetMapping("/update/name/{id}/{newName}")
+  public Product updateNameById(@PathVariable(name = "id") int id, @PathVariable(name = "newName") String newName){
+    return productService.updateNameById(id, newName);
+  }
 }
