@@ -23,4 +23,7 @@ public class OrderedItem {
 
   @ManyToOne
   private Order order;
+
+  @ManyToOne
+  private Product product;
 }
