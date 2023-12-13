@@ -16,7 +16,7 @@ public class CustomerService {
   private CustomerRepository customerRepository;
 
   public Customer insertCustomer(Customer customer){
-    if(customerRepository.findByCompanyEg(customer.getCompanyEg())!=null){
+    if(customerRepository.findByCompanyEg(customer.getCompanyEg()).size()!=0){
       throw new CustomerWithThatEGExistsException("Company's EG is already in use");
     }
     return customerRepository.save(customer);
@@ -30,6 +30,10 @@ public class CustomerService {
       throw new CustomerNotFoundException("Customer with that ID does not exist");
     }
     return customer;
+  }
+
+  public Customer getCustomerById(int id){
+    return customerRepository.findById(id).orElse(null);
   }
 
   public List<Customer> getCustomersWithName(String infix){
