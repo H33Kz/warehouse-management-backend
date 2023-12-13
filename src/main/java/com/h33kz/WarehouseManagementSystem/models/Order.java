@@ -1,12 +1,16 @@
 package com.h33kz.WarehouseManagementSystem.models;
 
-import java.sql.Date;
+import java.time.Instant;
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -22,10 +26,15 @@ import lombok.Setter;
 @Table(name = "orders")
 public class Order {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private int id;
-  private Date date;
+  @CreationTimestamp
+  private Instant date;
+  private boolean isFinalized;
 
-  @OneToMany
-  List<OrderedItem> orderedItems;
+  @ManyToOne
+  private Customer customer;
+
+  @OneToMany(cascade = CascadeType.ALL)
+  private List<OrderedItem> orderedItems;
 }
