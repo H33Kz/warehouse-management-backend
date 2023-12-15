@@ -41,13 +41,14 @@ public class OrderService {
     return orderRepository.save(order);
   }
 
-  public void removeOrder(int id){
+  public Order removeOrder(int id){
     Order order = orderRepository.findById(id).orElse(null);
     if(order!=null){
       orderRepository.delete(order);
     }else{
       throw new OrderNotFoundException("Order with that Id does not exist: " + id);
     }
+    return order;
   }
 
   public List<Order> getAllById(){
