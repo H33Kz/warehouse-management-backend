@@ -94,7 +94,7 @@ public class ProductService{
     if(product!=null){
       return product;
     }else{
-      throw new ProductNotFoundException("Product with that ID does not exist");
+      throw new ProductNotFoundException("Product with that ID does not exist: " + index);
     }
   }
   
