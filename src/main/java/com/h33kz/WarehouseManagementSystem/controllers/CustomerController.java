@@ -29,9 +29,24 @@ public class CustomerController {
     return customerService.removeCustomer(id);
   }
 
+  @GetMapping("/get/{id}")
+  public Customer getCustomerById(@PathVariable int id){
+    return customerService.getCustomerById(id);
+  }
+
+  @GetMapping("/getOrdered/id")
+  public List<Customer> getAllById(){
+    return customerService.getAllById();
+  }
+
   @GetMapping("/getWith/name/{searchString}")
   public List<Customer> getCustomersWithName(@PathVariable String searchString){
     return customerService.getCustomersWithName(searchString);
+  }
+
+  @GetMapping("/getWith/eg/{eg}")
+  public List<Customer> getCustomerWithEg(@PathVariable long searchNumber){
+    return customerService.getCustomerWithEg(searchNumber);
   }
 
   @GetMapping("/update/name/{id}/{newName}")
