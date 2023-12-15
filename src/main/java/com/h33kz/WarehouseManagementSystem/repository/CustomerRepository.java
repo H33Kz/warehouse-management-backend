@@ -10,5 +10,6 @@ import com.h33kz.WarehouseManagementSystem.models.Customer;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer,Integer> {
   List<Customer> findByNameContaining(String infix);
+  List<Customer> findByCompanyEgContaining(long infix);
   List<Customer> findByCompanyEg(long eg);
 }

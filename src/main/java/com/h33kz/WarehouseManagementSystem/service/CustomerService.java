@@ -36,8 +36,16 @@ public class CustomerService {
     return customerRepository.findById(id).orElse(null);
   }
 
+  public List<Customer> getAllById(){
+    return customerRepository.findAll();
+  }
+
   public List<Customer> getCustomersWithName(String infix){
     return customerRepository.findByNameContaining(infix);
+  }
+
+  public List<Customer> getCustomerWithEg(long infix){
+    return customerRepository.findByCompanyEgContaining(infix);
   }
 
   public Customer updateCustomerNameById(int id, String newName){
