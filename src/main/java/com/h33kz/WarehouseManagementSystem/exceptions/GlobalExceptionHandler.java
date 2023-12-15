@@ -11,7 +11,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-  @ExceptionHandler(value = {ProductNotFoundException.class,UserNotFoundException.class,CustomerNotFoundException.class})
+  @ExceptionHandler(value = {
+    ProductNotFoundException.class,
+    UserNotFoundException.class,
+    CustomerNotFoundException.class,
+    OrderNotFoundException.class
+  })
   public ResponseEntity<Object> handleResourceNotFoundException(Exception e){
     ExceptionResponse exceptionResponse = new ExceptionResponse(e.getMessage(), HttpStatus.NOT_FOUND, ZonedDateTime.now(ZoneId.of("Z")));
     return new ResponseEntity<>(exceptionResponse,HttpStatus.NOT_FOUND);
