@@ -1,10 +1,11 @@
 package com.h33kz.WarehouseManagementSystem.service;
 
-import java.sql.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.h33kz.WarehouseManagementSystem.exceptions.OrderNotFoundException;
 import com.h33kz.WarehouseManagementSystem.models.Customer;
 import com.h33kz.WarehouseManagementSystem.models.Order;
 import com.h33kz.WarehouseManagementSystem.models.OrderedItem;
@@ -40,7 +41,27 @@ public class OrderService {
     return orderRepository.save(order);
   }
 
+  public void removeOrder(int id){
+    Order order = orderRepository.findById(id).orElse(null);
+    if(order!=null){
+      orderRepository.delete(order);
+    }else{
+      throw new OrderNotFoundException("Order with that Id does not exist: " + id);
+    }
+  }
+
+  public List<Order> getAllById(){
+    return orderRepository.findAll();
+  }
+
+  public List<Order> getALlWithCustomer(int customerId){
+    Customer customer = customerService.getCustomerById(customerId);
+    return orderRepository.findByCustomer(customer);
+  }
+
   public Order getOrderById(int id){
     return orderRepository.findById(id).orElse(null);
   }
+
+
 }
