@@ -55,6 +55,10 @@ public class OrderService {
     return orderRepository.findAll();
   }
 
+  public List<Order> getAllByDate(){
+    return orderRepository.findByOrderByDate();
+  }
+
   public List<Order> getALlWithCustomer(int customerId){
     Customer customer = customerService.getCustomerById(customerId);
     return orderRepository.findByCustomer(customer);

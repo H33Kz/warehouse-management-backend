@@ -40,6 +40,11 @@ public class OrderController {
     return orderService.getAllById();
   }
 
+  @GetMapping("/getOrdered/date")
+  public List<Order> getAllByDate(){
+    return orderService.getAllByDate();
+  }
+
   @GetMapping("/getWith/{customerId}")
   public List<Order> getAllWithCustomer(@PathVariable int customerId){
     return orderService.getALlWithCustomer(customerId);

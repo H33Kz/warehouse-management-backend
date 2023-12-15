@@ -11,4 +11,5 @@ import com.h33kz.WarehouseManagementSystem.models.Order;
 @Repository
 public interface OrderRepository extends JpaRepository<Order,Integer>{
   List<Order> findByCustomer(Customer customer);
+  List<Order> findByOrderByDate();
 }
